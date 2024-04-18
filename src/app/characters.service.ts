@@ -36,12 +36,9 @@ export interface Species {
   providedIn: 'root',
 })
 export class CharactersService {
-  private characterQuery: QueryRef<
-    { characters: CharactersResult },
-    { offset: number }
-  >;
+  private characterQuery: QueryRef<{ characters: CharactersResult },{ offset: number }>;
   private findCharacterQuery: QueryRef<
-    { characters: CharacterDetail },
+    { character: CharacterDetail },
     { name: string }
   >;
   private findSpeciesQuery: QueryRef<{ species: Species }, { name: string }>;
@@ -56,7 +53,7 @@ export class CharactersService {
             count
             characters {
               name
-              howeworold
+              homeworld
               species
             }
           }
@@ -65,46 +62,48 @@ export class CharactersService {
     });
 
     this.findCharacterQuery = this.apollo.watchQuery({
-      query: gql`
-        query character($name: String!) {
-          name
-          height
-          mass
-          hair_color
-          skin_color
-          eye_color
-          birth_year
-          gender
-          homeworld
-          species
+      query: gql`query character($name:String!) {
+            character(name:$name){
+              name
+              height
+              mass
+              hair_color
+              skin_color
+              eye_color
+              birth_year
+              gender
+              homeworld
+              species
+          }
         }
       `,
     });
 
     this.findSpeciesQuery = this.apollo.watchQuery({
-      query: gql`
-        query character($name: String!) {
-          name
-          classification
-          designation
-          average_height
-          skin_colors
-          hair_colors
-          eye_colors
-          average_lifespan
-          language
-          homeworld
+      query: gql`query character($name: String!) {
+          species(name:$name){
+            name
+            classification
+            designation
+            average_height
+            skin_colors
+            hair_colors
+            eye_colors
+            average_lifespan
+            language
+            homeworld
+          }
         }
       `,
     });
   }
   async getCharacters(offset: number): Promise<CharactersResult> {
     const result = await this.characterQuery.refetch({ offset });
-    return result.data.characters;
+    return result.data.characters
   }
   async findCharacter(name:string):Promise<CharacterDetail>{
     const result = await this.findCharacterQuery.refetch({name});
-    return result.data.characters;
+    return result.data.character
   }
   async findSpecies(name:string):Promise<Species>{
     const result = await this.findSpeciesQuery.refetch({name});

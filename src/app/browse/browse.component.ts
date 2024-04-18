@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './browse.component.css'
 })
 export class BrowseComponent implements OnInit {
-  offset :number =0;
+  offset:number =0;
   count:number=0;
   characters : Character[] =[];
 
