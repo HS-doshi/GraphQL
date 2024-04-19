@@ -48,8 +48,8 @@ export class CharactersService {
   constructor(private apollo: Apollo) {
     this.characterQuery = this.apollo.watchQuery({
       query: gql`
-        query character($offset: Int!) {
-          character(offset: $offset) {
+        query characters($offset: Int!) {
+          characters(offset: $offset) {
             count
             characters {
               name
