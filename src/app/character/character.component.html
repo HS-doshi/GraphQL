@@ -1,1 +1,12 @@
-<p>character works!</p>
+<div *ngIf="character">
+  <p><strong>Name : </strong>{{character.name}}</p>
+  <p><strong>Mass : </strong>{{character.mass}}</p>
+  <p><strong>Hair Color : </strong>{{character.hair_color}}</p>
+  <p><strong>Skin Color : </strong>{{character.skin_color}}</p>
+  <p><strong>Eye Color : </strong>{{character.eye_color}}</p>
+  <p><strong>Birth Year : </strong>{{character.birth_year}}</p>
+  <p><strong>Gender : </strong>{{character.gender}}</p>
+  <p><strong>Height : </strong>{{character.height}}</p>
+  <p><strong>Homeworld : </strong>{{character.homeworld}}</p>
+</div>
+<a [routerLink]="['/browse']" routerLinkActive="router-link-active">Back</a>
